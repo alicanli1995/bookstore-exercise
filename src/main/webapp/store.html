@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Bookstore</title>
+	<style type="text/css">
+		@import url('css/bootstrap.css');
+		@import url('css/bootstrap-theme.css');
+		@import url("css/toastr.css");
+	</style>
+	<script type="text/javascript" src="js/lib/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="js/lib/toastr.min.js"></script>
+	<script type="text/javascript" src="js/lib/bootstrap.js"></script>
+	<script type="text/javascript" src="js/lib/knockout-3.4.2.js"></script>
+	<script type="text/javascript" src="js/store/http.service.js"></script>
+	<script type="text/javascript" src="js/store/bookstore.js"></script>
+</head>
+
+<body>
+	<p />
+	<div class="container-fluid" role="main">
+		<div data-bind="visible: books().length > 0" class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Books</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table table-responsive table-striped">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>ISBN</th>
+							<th>Author</th>
+							<th>Title</th>
+							<th>Price</th>
+							<th>Year</th>
+							<th>Pages</th>
+							<th>Operations</th>
+						</tr>
+					</thead>
+					<tbody data-bind="foreach: books">
+						<tr>
+							<td data-bind="text: $index() + 1"></td>
+							<td data-bind="text: isbn"></td>
+							<td data-bind="text: author"></td>
+							<td data-bind="text: title"></td>
+							<td data-bind="text: price"></td>
+							<td data-bind="text: year"></td>
+							<td data-bind="text: pages"></td>
+							<td>
+								<button class="btn btn-danger" data-bind="click: $parent.addToBasket">Add to
+									basket</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<p>
+		<div data-bind="visible: bookItems().length > 0" class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Basket</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table table-responsive table-striped">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>ISBN</th>
+							<th>Author</th>
+							<th>Title</th>
+							<th>Price</th>
+							<th>Quantity</th>
+							<th>Sub total</th>
+							<th>Year</th>
+							<th>Operations</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- ko foreach: bookItems-->
+						<tr>
+							<td data-bind="text: $index() + 1"></td>
+							<td data-bind="text: book.isbn"></td>
+							<td data-bind="text: book.author"></td>
+							<td data-bind="text: book.title"></td>
+							<td data-bind="text: book.price"></td>
+							<td><input type="number"
+									data-bind="value: quantity, event: {change: $parent.quantityChanged}" /></td>
+							<td data-bind="text: subTotal"></td>
+							<td data-bind="text: book.year"></td>
+							<td>
+								<button class="btn btn-danger"
+									data-bind="click: $parent.removeFromBasket">Remove</button>
+							</td>
+						</tr>
+						<!-- /ko -->
+						<tr>
+							<td colspan="5"></td>
+							<td data-bind="text: quantity"></td>
+							<td data-bind="text: totalAmount"></td>
+							<td></td>
+							<td><button class="btn btn-warning" data-bind="click: purchaseOrder">Purchase</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+	</div>
+</body>
+
+</html>
