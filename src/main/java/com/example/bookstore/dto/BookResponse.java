@@ -1,7 +1,7 @@
 package com.example.bookstore.dto;
 
 public record BookResponse (
-	Long id,
+		Long id,
 	 String isbn,
 	 String author,
 	 String title,

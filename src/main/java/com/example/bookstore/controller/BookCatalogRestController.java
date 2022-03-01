@@ -58,7 +58,7 @@ public class BookCatalogRestController {
 	}
 
 	@PostMapping
-	public BookResponse addBook(@RequestBody BookRequest book) {
+	public BookResponse addBook(@RequestBody BookRequest book){
 		return bookCatalogService.addBook(book);
 	}
 

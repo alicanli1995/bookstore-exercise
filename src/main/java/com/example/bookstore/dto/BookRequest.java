@@ -3,6 +3,8 @@ package com.example.bookstore.dto;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 public class BookRequest {
@@ -72,7 +74,7 @@ public class BookRequest {
 	public String getCover() {
 		return cover;
 	}
-	
+
 	public byte[] getBase64Cover() {
 		return Base64.decodeBase64(cover);
 	}

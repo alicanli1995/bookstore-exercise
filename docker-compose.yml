@@ -1,0 +1,21 @@
+version: '3.1'
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Secret_123
+      MYSQL_DATABASE: crmdb
+    ports:
+      - "3306:3306"
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongo:/data/db
+  cassandra:
+    image: cassandra
+    ports:
+      - '9042:9042'
+
