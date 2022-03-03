@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Bookstore Administration</title>
+	<style type="text/css">
+		.drop-zone {
+			border: 5px dashed #bbb;
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+			border-radius: 5px;
+			padding: 25px;
+			text-align: center;
+			font: 20pt bold;
+			color: #bbb;
+		}
+	</style>
+	<style type="text/css">
+		@import url('css/bootstrap.css');
+		@import url('css/bootstrap-theme.css');
+		@import url("css/toastr.css");
+	</style>
+	<script type="text/javascript" src="js/lib/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="js/lib/bootstrap.js"></script>
+	<script type="text/javascript" src="js/lib/toastr.min.js"></script>
+	<script type="text/javascript" src="js/lib/knockout-3.4.2.js"></script>
+	<script type="text/javascript" src="js/lib/ko-file.js"></script>
+	<script type="text/javascript" src="js/lib/Chart.bundle.js"></script>
+	<script type="text/javascript" src="js/lib/ko-chart.js"></script>
+	<script type="text/javascript" src="js/admin/http.service.js"></script>
+	<script type="text/javascript" src="js/admin/bookstore.js"></script>
+</head>
+
+<body>
+	<p>
+	<div class="container-fluid" role="main">
+		<p>
+		<div class="panel panel-success col-md-4">
+			<div class="panel-heading">
+				<h3 class="panel-title">Admin Panel</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label for="cover"></label>
+					<img data-bind="attr: {src: fileData().dataUrl }" style="height: 32px;" class="img-thumbnail" />
+					<input type="file" data-bind="fileInput: fileData" id="cover" class="form-control" />
+					<div type="text" id="filedrag" class="drop-zone" data-bind="event: {
+    							drop: function (data,e) { $root.insertFile(e,data);},
+    							dragover: function(data,e){ $root.dragover(e);}
+							}"></div>
+				</div>
+				<div class="form-group">
+					<label for="isbn">ISBN</label>
+					<input id="isbn" data-bind="value: book.isbn" type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="author">Author</label>
+					<input id="author" data-bind="value: book.author" type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="title">Title</label>
+					<input id="title" data-bind="value: book.title" type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="price">Price</label>
+					<input id="price" data-bind="value: book.price" type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="pages">Pages</label>
+					<input id="pages" data-bind="value: book.pages" type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="year">Year</label>
+					<input id="year" data-bind="value: book.year" type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<h1>
+						<span class="label label-default" data-bind="text: status"></span>
+					</h1>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-warning" data-bind="click: add">Add</button>
+					<button class="btn btn-warning" data-bind="click: update">Update</button>
+					<button class="btn btn-success" data-bind="click: findAll">Find All</button>
+					<button class="btn btn-success" data-bind="click: findByIsbn">Find</button>
+				</div>
+			</div>
+		</div>
+		<p>
+		<div class="panel panel-success col-md-8">
+			<div class="panel-heading">
+				<h3 class="panel-title">Business Activity Monitoring</h3>
+			</div>
+			<div class="panel-body">
+				<canvas
+					data-bind="chart: { type: 'bar', data: data, options: { observeChanges: true, throttle: 100 } }"></canvas>
+			</div>
+		</div>
+		<p>
+		<div data-bind="visible: books().length > 0" class="panel panel-success col-md-8">
+			<div class="panel-heading">
+				<h3 class="panel-title">Books</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table table-responsive table-striped">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>ISBN</th>
+							<th>Author</th>
+							<th>Title</th>
+							<th>Price</th>
+							<th>Year</th>
+							<th>Pages</th>
+							<th>Operations</th>
+						</tr>
+					</thead>
+					<tbody data-bind="foreach: books">
+						<tr>
+							<td data-bind="text: $index() + 1"></td>
+							<td data-bind="text: isbn"></td>
+							<td data-bind="text: author"></td>
+							<td data-bind="text: title"></td>
+							<td data-bind="text: price"></td>
+							<td data-bind="text: year"></td>
+							<td data-bind="text: pages"></td>
+							<td>
+								<button class="btn btn-danger" data-bind="click: $parent.removeBook">Delete</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
