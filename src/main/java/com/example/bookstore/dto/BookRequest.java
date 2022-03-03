@@ -82,6 +82,21 @@ public class BookRequest {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof BookRequest)) return false;
+
+		BookRequest that = (BookRequest) o;
+
+		return isbn.equals(that.isbn);
+	}
+
+	@Override
+	public int hashCode() {
+		return isbn.hashCode();
+	}
+
+	@Override
 	public String toString() {
 		return "BookRequest [isbn=" + isbn + ", author=" + author + ", title=" + title + ", pages=" + pages + ", year="
 				+ year + ", price=" + price + "]";

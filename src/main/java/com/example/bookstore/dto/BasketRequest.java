@@ -5,6 +5,21 @@ import java.util.Collection;
 public class BasketRequest {
     private Collection<BookItemDTO> items;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BasketRequest)) return false;
+
+        BasketRequest that = (BasketRequest) o;
+
+        return items.equals(that.items);
+    }
+
+    @Override
+    public int hashCode() {
+        return items.hashCode();
+    }
+
     public BasketRequest() {
     }
 

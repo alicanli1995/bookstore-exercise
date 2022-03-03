@@ -4,6 +4,24 @@ public class BookItemDTO {
 	private String isbn;
 	private int quantity;
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof BookItemDTO)) return false;
+
+		BookItemDTO that = (BookItemDTO) o;
+
+		if (quantity != that.quantity) return false;
+		return isbn.equals(that.isbn);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = isbn.hashCode();
+		result = 31 * result + quantity;
+		return result;
+	}
+
 	public BookItemDTO() {
 	}
 
